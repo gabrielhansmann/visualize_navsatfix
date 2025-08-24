@@ -5,8 +5,8 @@ import pandas as pd
 from rosbags.highlevel import AnyReader
 
 # Usage: python3 export_gps.py [BAG_DIR] [TOPIC]
-bag_dir = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("2025-08-06-metternich_eule")
-topic   = sys.argv[2] if len(sys.argv) > 2 else "/lynx/gps/fix"
+bag_dir = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("metternich_eule")
+topic   = sys.argv[2] if len(sys.argv) > 2 else "/gps/fix"
 
 rows = []
 
@@ -26,6 +26,6 @@ with AnyReader([bag_dir]) as reader:
         })
 
 df = pd.DataFrame(rows)
-out = bag_dir.with_suffix("").name + "_gps_points.csv"
+out = bag_dir.with_suffix("").name + ".csv"
 df.to_csv(out, index=False)
 print(f"Wrote {out} with {len(df)} rows from topic {topic}")
